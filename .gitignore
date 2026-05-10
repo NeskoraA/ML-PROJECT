@@ -9,10 +9,11 @@ dist/
 build/
 .idea/
 .vscode/
+.claude/
+.pytest_cache/
+catboost_info/
 *.log
 models_saved/*.pkl
 models_saved/*.npy
 models_saved/*.npz
-data/reviews.csv
-reviews.db
 get-pip.py
