@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from logger_setup import log
 
-st.set_page_config(page_title="Статистика товаров", page_icon="📦", layout="wide")
-st.title("📦 Статистика по товарам")
+st.set_page_config(page_title="Статистика товаров", layout="wide")
+st.title("Статистика по товарам")
 
 
 def get_user_id() -> int:
@@ -50,7 +50,7 @@ display["avg_rating"]    = display["avg_rating"].round(2)
 display["pos_ratio"]     = (display["pos_ratio"] * 100).round(1).astype(str) + "%"
 display.columns = ["Товар", "Средний рейтинг", "Кол-во отзывов", "% позитивных"]
 
-st.subheader("📋 Сводная таблица по товарам")
+st.subheader("Сводная таблица по товарам")
 st.dataframe(display, use_container_width=True, hide_index=True)
 
 # Highlight best product
@@ -85,7 +85,7 @@ with c2:
 # ── Top-5 negative words per product ──────────────────────────────────────────
 
 from utils import top_negative_words
-st.subheader("🔴 Топ-5 негативных слов по товару")
+st.subheader("Топ-5 негативных слов по товару")
 selected = st.selectbox("Выберите товар", sorted(df["product"].unique()))
 
 prod_df = df[df["product"] == selected]
@@ -102,7 +102,7 @@ else:
 
 # ── Word cloud per product ─────────────────────────────────────────────────────
 
-st.subheader("☁️ Облако слов")
+st.subheader("Облако слов")
 texts = " ".join(prod_df["text"].tolist())
 if texts.strip():
     wc = WordCloud(width=800, height=300, background_color="white",

@@ -15,7 +15,7 @@ from wordcloud import WordCloud
 
 from logger_setup import log
 
-st.set_page_config(page_title="Анализ отзывов", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Анализ отзывов", layout="wide")
 
 MODELS_DIR = "models_saved"
 
@@ -86,12 +86,12 @@ user_id = get_user_id()
 models, vectorizer, results = load_models()
 df = load_data()
 
-st.title("📊 Анализ отзывов клиентов")
-st.caption(f"Сессия: пользователь #{user_id}")
+st.title("Анализ отзывов клиентов")
+st.caption(f"Пользователь: ID {user_id}")
 
 # ── Review form ────────────────────────────────────────────────────────────────
 
-st.header("✏️ Оставить отзыв")
+st.header("Оставить отзыв")
 c1, c2 = st.columns([3, 1])
 with c1:
     review_text = st.text_area("Текст отзыва", placeholder="Напишите ваш отзыв…", height=100)
@@ -117,7 +117,7 @@ if st.button("Отправить отзыв", type="primary"):
 
 # ── Sentiment analyser ─────────────────────────────────────────────────────────
 
-st.header("🔍 Анализ тональности текста")
+st.header("Анализ тональности текста")
 analyze_text = st.text_input("Введите любой текст для анализа тональности:")
 if analyze_text.strip() and models and vectorizer:
     from utils import predict_sentiment
@@ -130,7 +130,7 @@ if analyze_text.strip() and models and vectorizer:
 
 # ── KPI cards ──────────────────────────────────────────────────────────────────
 
-st.header("📈 Общая статистика")
+st.header("Общая статистика")
 df_b = df[df["sentiment"].notna()].copy()
 df_b["sentiment"] = df_b["sentiment"].astype(float)
 
@@ -165,7 +165,7 @@ with c2:
 
 # ── Word clouds ────────────────────────────────────────────────────────────────
 
-st.subheader("☁️ Облако слов")
+st.subheader("Облако слов")
 c1, c2 = st.columns(2)
 for col, sent_val, title, cmap in [
     (c1, 1, "Позитивные отзывы", "Greens"),

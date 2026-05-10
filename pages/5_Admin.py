@@ -4,8 +4,8 @@ import streamlit as st
 import pandas as pd
 from logger_setup import read_last_logs, log
 
-st.set_page_config(page_title="Администратор", page_icon="🔐", layout="wide")
-st.title("🔐 Панель администратора")
+st.set_page_config(page_title="Администратор", layout="wide")
+st.title("Панель администратора")
 st.caption("Только для разработчика / администратора")
 
 
@@ -37,11 +37,11 @@ if not st.session_state.admin_auth:
 # ── Log viewer ─────────────────────────────────────────────────────────────────
 
 st.success("Вы вошли как администратор")
-if st.button("🔄 Обновить"):
+if st.button("Обновить"):
     st.rerun()
 
 lines = read_last_logs(50)
-st.subheader(f"📋 Последние {len(lines)} записей из app.log")
+st.subheader(f"Последние {len(lines)} записей из app.log")
 
 if not lines:
     st.info("Лог-файл пуст или не создан.")
@@ -59,11 +59,11 @@ else:
         else:
             rows.append({"Время": line, "user_id": "", "Действие": "", "Результат": ""})
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-    st.download_button("📥 Скачать лог", "\n".join(lines), file_name="app.log", mime="text/plain")
+    st.download_button("Скачать лог", "\n".join(lines), file_name="app.log", mime="text/plain")
 
 # ── DB stats ───────────────────────────────────────────────────────────────────
 
-st.subheader("🗄️ Состояние базы данных")
+st.subheader("Состояние базы данных")
 from database import get_reviews
 df = get_reviews()
 c1, c2, c3 = st.columns(3)
