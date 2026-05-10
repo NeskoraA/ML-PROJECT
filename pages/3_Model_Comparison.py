@@ -13,8 +13,8 @@ from scipy.sparse import load_npz
 from sklearn.metrics import roc_curve, auc
 from logger_setup import log
 
-st.set_page_config(page_title="Сравнение моделей", page_icon="🤖", layout="wide")
-st.title("🤖 Сравнение моделей классификации")
+st.set_page_config(page_title="Сравнение моделей", layout="wide")
+st.title("Сравнение моделей классификации")
 
 MODELS_DIR = "models_saved"
 
@@ -50,7 +50,7 @@ if results is None:
 
 # ── Metrics table ──────────────────────────────────────────────────────────────
 
-st.subheader("📋 Сводная таблица метрик (до и после GridSearchCV)")
+st.subheader("Сводная таблица метрик (до и после GridSearchCV)")
 
 rows = []
 for name, r in results.items():
@@ -77,7 +77,7 @@ st.success(
 
 # ── F1 bar chart ───────────────────────────────────────────────────────────────
 
-st.subheader("📊 F1-score до и после подбора гиперпараметров")
+st.subheader("F1-score до и после подбора гиперпараметров")
 names  = list(results.keys())
 b_f1   = [results[n]["base"]["f1"]  for n in names]
 t_f1   = [results[n]["tuned"]["f1"] for n in names]
@@ -93,7 +93,7 @@ st.plotly_chart(fig_bar, use_container_width=True)
 
 # ── ROC curves ────────────────────────────────────────────────────────────────
 
-st.subheader("📈 ROC-кривые")
+st.subheader("ROC-кривые")
 fig_roc = go.Figure()
 for name, model in models.items():
     if not hasattr(model, "predict_proba"):
@@ -124,7 +124,7 @@ st.plotly_chart(fig_roc, use_container_width=True)
 
 # ── Conclusions ────────────────────────────────────────────────────────────────
 
-st.subheader("🔎 Выводы")
+st.subheader("Выводы")
 best_f1 = results[best_name]["tuned"]["f1"]
 worst_name = min(results, key=lambda n: results[n]["tuned"]["f1"])
 st.markdown(f"""

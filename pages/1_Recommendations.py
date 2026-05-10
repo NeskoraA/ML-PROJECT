@@ -5,8 +5,8 @@ import pandas as pd
 import plotly.express as px
 from logger_setup import log
 
-st.set_page_config(page_title="Рекомендации", page_icon="⭐", layout="wide")
-st.title("⭐ Персонализированные рекомендации")
+st.set_page_config(page_title="Рекомендации", layout="wide")
+st.title("Персонализированные рекомендации")
 
 
 def get_user_id() -> int:
@@ -22,7 +22,7 @@ def load_data() -> pd.DataFrame:
 
 
 user_id = get_user_id()
-st.info(f"Ваш ID в системе: **{user_id}**")
+st.caption(f"Пользователь: ID {user_id}")
 
 df = load_data()
 
@@ -36,7 +36,7 @@ if user_id in matrix.index:
     history.columns = ["Товар", "Средняя оценка"]
     history["Средняя оценка"] = history["Средняя оценка"].round(1)
     if len(history) > 0:
-        st.subheader("📋 Ваши оценки")
+        st.subheader("Ваши оценки")
         st.dataframe(history, use_container_width=True, hide_index=True)
     else:
         st.info("Вы ещё не оставляли отзывов. Оставьте отзыв на главной странице!")
@@ -45,7 +45,7 @@ else:
 
 # ── Recommendations ────────────────────────────────────────────────────────────
 
-st.subheader("🎯 Рекомендуем вам")
+st.subheader("Рекомендуем вам")
 with st.spinner("Вычисляю рекомендации…"):
     recs = get_recommendations(user_id, df, n=5)
 
@@ -59,7 +59,7 @@ if recs:
 
         c1, c2, c3, c4 = st.columns([4, 1, 1, 1])
         c1.markdown(f"**{i}. {prod}**")
-        c2.metric("Рейтинг", f"{avg_rating:.1f} ⭐")
+        c2.metric("Рейтинг", f"{avg_rating:.1f}")
         c3.metric("Отзывов", cnt)
         c4.metric("Позитив", f"{pos:.0%}")
         st.divider()
@@ -68,7 +68,7 @@ else:
 
 # ── All products chart ─────────────────────────────────────────────────────────
 
-st.subheader("📊 Все товары по рейтингу")
+st.subheader("Все товары по рейтингу")
 prod_stats = df.groupby("product").agg(avg=("rating", "mean"), cnt=("rating", "count")).reset_index()
 prod_stats.columns = ["Товар", "Средний рейтинг", "Отзывов"]
 fig = px.scatter(

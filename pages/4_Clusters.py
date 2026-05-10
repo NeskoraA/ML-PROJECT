@@ -9,8 +9,8 @@ import pandas as pd
 import joblib
 from logger_setup import log
 
-st.set_page_config(page_title="Кластеры", page_icon="🔵", layout="wide")
-st.title("🔵 Кластеризация отзывов")
+st.set_page_config(page_title="Кластеры", layout="wide")
+st.title("Кластеризация отзывов")
 
 MODELS_DIR = "models_saved"
 CLUSTER_FILE = f"{MODELS_DIR}/cluster_results.pkl"
@@ -54,7 +54,7 @@ c3.metric("Кластеров DBSCAN",  n_dbscan)
 
 # ── Interactive scatter ────────────────────────────────────────────────────────
 
-st.subheader("🗺️ Интерактивная карта кластеров (PCA + KMeans)")
+st.subheader("Интерактивная карта кластеров (PCA + KMeans)")
 st.caption("Нажмите на точку или выделите область — ниже появятся примеры отзывов из этого кластера.")
 
 fig = create_cluster_figure(result)
@@ -109,7 +109,7 @@ if selected_cluster is not None:
 
 # ── Cluster overview table ─────────────────────────────────────────────────────
 
-st.subheader("📊 Статистика всех кластеров")
+st.subheader("Статистика всех кластеров")
 
 for cid, info in stats.items():
     with st.expander(
